@@ -30,18 +30,6 @@ func getMigrationInfo(file string) (string, string, error) {
 	return s[0], description, nil
 }
 
-func NewMigration(description string, do, undo func(ctx context.Context) error) (migrations.Migration, error) {
-	_, file, _, ok := runtime.Caller(1)
-	if !ok {
-		return nil, fmt.Errorf("%w: %s", ErrInvalidFilename, path.Base(file))
-	}
-	id, description, err := getMigrationInfo(file)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get migration ID: %w", err)
-	}
-	return migrations.NewMigration(id, description, do, undo), nil
-}
-
 type migrationOpts struct {
 	skip int
 }
