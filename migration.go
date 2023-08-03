@@ -46,7 +46,7 @@ func defaultMigrationOpts() migrationOpts {
 // Migration2 is a helper function to create a new migration based on the filename of the caller.
 // Eg: if you have a file called 1234567890_some_description.go, the migration ID will be 1234567890 and the description
 // will be "some description".
-func Migration2(description string, do, undo func(ctx context.Context) error, opts ...Option) migrations.Migration {
+func Migration2(do, undo func(ctx context.Context) error, opts ...Option) migrations.Migration {
 	o := defaultMigrationOpts()
 	for _, opt := range opts {
 		opt(&o)
@@ -60,7 +60,7 @@ func Migration2(description string, do, undo func(ctx context.Context) error, op
 
 // Migration is a helper function to create a new forward migration based on the filename of the caller. The
 // difference between this and Migration2 is that this doesn't need the undo function.
-func Migration(description string, do func(ctx context.Context) error, opts ...Option) migrations.Migration {
+func Migration(do func(ctx context.Context) error, opts ...Option) migrations.Migration {
 	o := defaultMigrationOpts()
 	for _, opt := range opts {
 		opt(&o)
